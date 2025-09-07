@@ -47,11 +47,15 @@ data_loader = DataLoader(dataset, batch_size=batch_size, shuffle=True)
 
 # Initialize and Wrap the Model
 model = SimpleModel(input_size, output_size)
+
 if num_gpus > 1:
-    print(f"Using {num_gpus} GPUs for training!")
+    print(f"✅ Using {num_gpus} GPUs for DataParallel training.")
     model = nn.DataParallel(model)
+    print(f"Model is wrapped in DataParallel: {isinstance(model, nn.DataParallel)}")
+    print(f"Devices available: {[torch.cuda.get_device_name(i) for i in range(num_gpus)]}")
 else:
-    print("Training on a single device (CPU or 1 GPU).")
+    print("⚠️ Using a single GPU or CPU. DataParallel not enabled.")
+
 model.to(device)
 
 # Loss and Optimizer
@@ -65,8 +69,10 @@ for epoch in range(num_epochs):
     for i, (batch_inputs, batch_targets) in enumerate(data_loader):
         batch_inputs = batch_inputs.to(device)
         batch_targets = batch_targets.to(device)
+
         debug = epoch == 0 and i == 0
         outputs = model(batch_inputs, debug=debug)
+
         if debug:
             print("Outside: input size", batch_inputs.size(), "output_size", outputs.size())
         loss = criterion(outputs, batch_targets)
