@@ -1,3 +1,6 @@
+# pip install torch
+# pip install numpy
+
 # Imports and Initial Setup
 import os
 import torch
@@ -95,6 +98,10 @@ def main():
         world_size = 0
         print("No GPUs found. DDP requires GPUs.")
         return
+
+    # Set environment variables for DDP
+    os.environ['MASTER_ADDR'] = 'localhost'   # or 'localhost'
+    os.environ['MASTER_PORT'] = '29500'       # any free port
 
     mp.spawn(
         train,

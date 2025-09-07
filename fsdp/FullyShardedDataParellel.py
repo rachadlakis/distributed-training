@@ -6,7 +6,9 @@ import torch.distributed as dist
 import torch.multiprocessing as mp
 from torch.utils.data import TensorDataset, DataLoader
 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
-from torch.distributed.fsdp.wrap import default_auto_wrap_policy
+# from torch.distributed.fsdp.wrap import default_auto_wrap_policy
+
+from torch.distributed.fsdp.wrap import size_based_auto_wrap_policy
 
 # ------------------------------
 # Simple Model
@@ -58,7 +60,10 @@ def train_simple(rank, world_size, input_size=784, output_size=10, batch_size=32
     train_loader = get_dataloader(input_size, output_size, batch_size)
 
     model = SimpleModel(input_size, output_size).to(device)
-    fsdp_model = FSDP(model, auto_wrap_policy=default_auto_wrap_policy)
+    # fsdp_model = FSDP(model, auto_wrap_policy=default_auto_wrap_policy)
+    fsdp_model = FSDP(model, auto_wrap_policy=size_based_auto_wrap_policy)
+
+    
 
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(fsdp_model.parameters(), lr=lr)
