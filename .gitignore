@@ -6,3 +6,7 @@
 *.fatbin
 .vscode/settings.json
 torch-env/
+.python-version
+Files/FSDP and OOM in cuda GPUs.pdf
+Files/Slides Umar Jamil.pdf
+.gitignore
