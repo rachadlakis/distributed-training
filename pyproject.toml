@@ -1,7 +1,21 @@
 [project]
-name = "distributed-training"
+name = "ditributed-training"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
-requires-python = ">=3.10"
-dependencies = []
+requires-python = ">=3.12.0"
+dependencies = [
+    "torch>=2.7.0",
+    "torchvision>=0.22.0",
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu128" },
+]
+torchvision = [
+    { index = "pytorch-cu128" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
