@@ -10,3 +10,5 @@ torch-env/
 Files/FSDP and OOM in cuda GPUs.pdf
 Files/Slides Umar Jamil.pdf
 .gitignore
+PyTorch tutorials/*
+Files/*
