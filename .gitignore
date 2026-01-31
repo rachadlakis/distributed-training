@@ -14,3 +14,4 @@ PyTorch tutorials/*
 Files/*
 Testing Noteook.ipynb
 Local/__pycache__/*
+trained_models/*
