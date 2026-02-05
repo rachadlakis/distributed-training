@@ -15,3 +15,4 @@ Files/*
 Testing Noteook.ipynb
 Local/__pycache__/*
 trained_models/*
+/Local/trained_models
